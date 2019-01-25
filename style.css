@@ -1,0 +1,108 @@
+@import url("https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css"); /* Using a url */
+
+/* #surveyForm {
+  position: relative;
+} */
+.form-field {
+  position: relative;
+}
+textarea {
+  font-family: inherit;
+}
+.buttons-section {
+  display: table;
+  width: 100%;
+}
+.buttons-container {
+  float: right;
+}
+.overlay {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.7);
+  transition: opacity 500ms;
+  visibility: hidden;
+  opacity: 0;
+}
+
+.popup {
+  margin: 70px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 5px;
+  width: 30%;
+  position: relative;
+  transition: all 5s ease-in-out;
+}
+
+.popup .close {
+  position: absolute;
+  top: 0;
+  right: 15px;
+  transition: all 200ms;
+  font-size: 30px;
+  font-weight: bold;
+  text-decoration: none;
+  color: #333;
+}
+.popup .close:hover {
+  color: #06D85F;
+}
+
+.modal-active {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* styles for form from w3c */
+
+/* Mark input boxes that gets an error on validation: */
+input {
+  margin-bottom: 24px;
+}
+input.invalid {
+  background-color: #ffdddd;
+}
+
+/* Hide all steps by default: */
+.tab {
+  display: none;
+}
+
+/* Make circles that indicate the steps of the form: */
+.steps-container {
+  text-align: center;
+  margin-top: 40px;
+}
+.step {
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+  background-color: #bbbbbb;
+  border: none; 
+  border-radius: 50%;
+  display: inline-block;
+  opacity: 0.5;
+}
+
+/* Mark the active step: */
+.step.active {
+  opacity: 1;
+}
+
+/* Mark the steps that are finished and valid: */
+.step.finish {
+  background-color: grey;
+}
+
+.message-error {
+  background:#ffdddd;
+  position: absolute;
+  margin-bottom: 0;
+  font-size: 12px;
+  bottom: 0;
+  width: 100%;
+}

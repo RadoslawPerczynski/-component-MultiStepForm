@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.css"> -->
+
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"> -->
+    <link rel="stylesheet" type="text/css" href="style.css">
+
+    <title>Popup multiple form sandbox</title>
+  </head>
+  <body>
+  <h1>Popup multiple form</h1>
+  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus inventore impedit, reprehenderit soluta sed quisquam consectetur accusantium facilis, eveniet rem fugiat iure. Amet praesentium eveniet ducimus? Quidem, sed quo! Odio.</p>
+
+  <h1>Popup/Modal Windows without JavaScript</h1>
+  
+  <div id="modal" class="overlay">
+    <div class="popup">
+     
+      <a class="close" href="#">&times;</a>
+      <div class="content row">
+        
+        <form id="surveyForm" action="">
+
+          <h2>Wyzer Survey</h2>
+          <p class="intro">Welcome to the Wyzer customer satisfaction survey!</p>
+          <p class="message"></p>
+          
+          <!-- One "tab" for each step in the form: -->
+          <div class="tab">
+            <div class="form-field">
+                <label for="userName">Name:</label>
+                <input class="u-full-width user-input" type="text" placeholder="Your name" id="userName" name="userName" required>
+            </div>
+            <div class="form-field">
+                <label for="userEmail">E-mail:</label>
+                <input class="u-full-width user-input" type="email" placeholder="Your e-mail address" id="userEmail" name="userEmail" required>
+            </div>
+          </div>
+          
+          <div class="tab">
+              <div class="form-field">
+                  <label for="userAge">Age:</label>
+                  <select class="u-full-width user-input" id="userAge" name="userAge" required>
+                    <option value="">--Select Age--</option>
+                   </option>
+                  </select>
+              </div>
+             
+
+              <div class="form-field">
+                  <label for="userAboutMe">About Me:</label>
+                  <textarea class="u-full-width user-input" placeholder="About me..." id="userAboutMe" name="userAboutMe" required></textarea>
+              </div>
+              
+
+             
+          </div>
+          
+          <div class="tab">
+              <div class="form-field">
+                  <label for="userAddress">Adress:</label>
+                  <input class="u-full-width user-input" type="text" placeholder="Address" id="userAddress" name="userAddress">
+              </div>
+              
+
+              <div class="form-field">
+                  <label>Gender:</label>
+                  <label>
+                      <input type="radio" name="userGender" value="male" class="user-input">
+                      <span class="label-body">Male</span>
+                    </label>
+    
+                    <label>
+                      <input type="radio" name="userGender" value="female" class="user-input">
+                        <span class="label-body">Female</span>
+                      </label>
+              </div>
+
+          </div>
+          
+          <div class="tab">
+              <div class="form-field">
+                  <label for="userFavouriteBook">Favourite book:</label>
+                  <input class="u-full-width user-input" type="text" placeholder="Favourite book" id="userFavouriteBook" name="userFavouriteBook">
+    
+              </div>
+              
+              <div class="form-field">
+                  <label>Favourite colors:</label>
+                  <label>
+                    <input type="checkbox" class="user-input" name="userFavouriteColor" value="Red">
+                    <span class="label-body">Red</span>
+                  </label>
+                  <label>
+                    <input type="checkbox" class="user-input" name="userFavouriteColor" value="Aqua">
+                    <span class="label-body">Aqua</span>
+                  </label>
+                    <label>
+                     <input type="checkbox" class="user-input" name="userFavouriteColor" value="Blue">
+                     <span class="label-body">Blue</span>
+                    </label>
+                      <label>
+                       <input type="checkbox" class="user-input" name="userFavouriteColor" value="Crimson">
+                      <span class="label-body">Crimson</span>
+                    </label>
+              </div>
+              
+
+          </div>
+
+          <div class="buttons-section">
+            <div class="buttons-container">
+              <button type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
+              <button type="button" class="button-primary" id="nextBtn" onclick="nextPrev(1)">Next</button>
+            </div>
+          </div>
+          
+          <!-- Circles which indicates the steps of the form: -->
+          <div class="steps-container">
+            <span class="step"></span>
+            <span class="step"></span>
+            <span class="step"></span>
+            <span class="step"></span>
+          </div>
+          
+          </form>
+
+
+      </div>
+    </div>
+  </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
