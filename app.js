@@ -14,24 +14,15 @@ setTimeout(() => {
 
 
 const user = {
-  Name: "",
-  Email: "",
-  Age: "",
-  AboutMe: "",
-  Address: "",
+  Name: "HipHop",
+  Email: "hiphop@o2.pl",
+  Age: "10",
+  AboutMe: "Kiss me",
+  Address: "Moja ulica",
   Gender: "",
-  FavouriteBook: "",
+  FavouriteBook: "Wladca pierscieni",
   FavouriteColor: []
 }
-
-
-document.addEventListener("DOMContentLoaded", function(event) { 
-  populateAgeDropdown();
-  // generateStepsIndicators();
-
-
-});
-
 function populateAgeDropdown() {
   var ageDropdown = document.getElementById('userAge');
   const startAge = 10;
@@ -42,7 +33,61 @@ function populateAgeDropdown() {
       theOption.value = i;
       ageDropdown.options[i - startAge+1] = theOption;
   }
+  console.log('populated the dropdown');
 }
+
+document.addEventListener("DOMContentLoaded", function(event) { 
+  populateAgeDropdown();
+  // generateStepsIndicators();
+  readFromLocalStorage();
+
+});
+
+saveToLocalStorageRad();
+function saveToLocalStorageRad() {
+  localStorage.setItem('userObject', JSON.stringify(user));
+}
+
+function readFromLocalStorage() {
+  let userFromLocalStorage = JSON.parse(localStorage.getItem('userObject'))
+  let fields = document.querySelectorAll('.user-input');
+
+  let userProperties = Object.keys(userFromLocalStorage);
+  let arrayOfvalues = [];
+  console.log('reading fromlocal storage');
+  for(let i = 0; i < userProperties.length; i++) {
+   
+    fields.forEach(function(field) {
+
+       if(field.name === userProperties[i]) {
+        
+          if(field.type === "text" || 
+          field.type === "textarea" || 
+          field.type === "email" || 
+          field.type === "select-one" ||
+          field.type === "radio" && field.checked) 
+          {
+            field.value = userFromLocalStorage[userProperties[i]];
+            //console.log(typeof  user[userProperties[i]]);
+          }
+          // else if () {
+            
+          // } 
+          // else if (field.type === "checkbox" && field.checked && typeof(userFromLocalStorage[userProperties[i]]) === "object") {
+          //   arrayOfvalues.push(field.value);
+          //   userFromLocalStorage[userProperties[i]] = arrayOfvalues;
+          // }
+          
+
+      }
+
+
+    })
+  
+  }
+};
+
+
 // function generateStepsIndicators() {
 //   const steps = document.querySelectorAll('#modal .tab');
 //   const stepsContainer = document.querySelector('.steps-container');
@@ -188,7 +233,7 @@ function showResults() {
 function validateForm() {
   let valid = true;
   
-  return valid; //temporary tot est
+  //return valid; //temporary tot est
 
 
   let collectionOfTabs = document.getElementsByClassName("tab");
