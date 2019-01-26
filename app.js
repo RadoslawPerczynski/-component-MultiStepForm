@@ -1,6 +1,52 @@
+var currentTab = 0; // Current tab is set to be the first tab (0)
+
+document.addEventListener("DOMContentLoaded", function(event) { 
+  //placeholder for creating a form and injectin it
+  populateAgeDropdown();
+  generateStepsIndicators();
+
+
+showTab(currentTab); // Display the current tab
+
+  readFromLocalStorage();
+
+});
+
+
+function generateStepsIndicators() {
+  const steps = document.querySelectorAll('#modal .tab');
+  const stepsContainer = document.querySelector('.steps-container');
+
+  for(let i = 0; i < steps.length; i++) {
+    let singeStepIndicator = document.createElement('span');
+    singeStepIndicator.classList = "step";
+
+    stepsContainer.appendChild(singeStepIndicator)
+    console.log('step')
+  }
+
+}
+
+
+function fixStepIndicator(n) {
+  // This function removes the "active" class of all steps...
+  var i, x = document.getElementsByClassName("step");
+  for (i = 0; i < x.length; i++) {
+    x[i].className = x[i].className.replace(" active", "");
+  }
+  //... and adds the "active" class to the current step:
+  x[n].className += " active";
+}
+
+ 
+
+//Define UI variables
 
 
 
+// function loadEventListeners() {
+//   //
+// }
 const modal = document.querySelector('#modal');
 const closeBtn = document.querySelector('.close');
 
@@ -19,9 +65,9 @@ const user = {
   Age: "10",
   AboutMe: "Kiss me",
   Address: "Moja ulica",
-  Gender: "",
+  Gender: "Male",
   FavouriteBook: "Wladca pierscieni",
-  FavouriteColor: []
+  FavouriteColor: ['Red','Crimson']
 }
 function populateAgeDropdown() {
   var ageDropdown = document.getElementById('userAge');
@@ -36,12 +82,6 @@ function populateAgeDropdown() {
   console.log('populated the dropdown');
 }
 
-document.addEventListener("DOMContentLoaded", function(event) { 
-  populateAgeDropdown();
-  // generateStepsIndicators();
-  readFromLocalStorage();
-
-});
 
 saveToLocalStorageRad();
 function saveToLocalStorageRad() {
@@ -54,29 +94,33 @@ function readFromLocalStorage() {
 
   let userProperties = Object.keys(userFromLocalStorage);
   let arrayOfvalues = [];
-  console.log('reading fromlocal storage');
   for(let i = 0; i < userProperties.length; i++) {
    
     fields.forEach(function(field) {
-
+      let fdsf = userProperties[i];
        if(field.name === userProperties[i]) {
         
           if(field.type === "text" || 
           field.type === "textarea" || 
           field.type === "email" || 
-          field.type === "select-one" ||
-          field.type === "radio" && field.checked) 
+          field.type === "select-one") 
           {
             field.value = userFromLocalStorage[userProperties[i]];
-            //console.log(typeof  user[userProperties[i]]);
-          }
-          // else if () {
             
-          // } 
-          // else if (field.type === "checkbox" && field.checked && typeof(userFromLocalStorage[userProperties[i]]) === "object") {
-          //   arrayOfvalues.push(field.value);
-          //   userFromLocalStorage[userProperties[i]] = arrayOfvalues;
-          // }
+          }
+          else if (field.type === "radio" && field.value === userFromLocalStorage[userProperties[i]].toLowerCase()) {
+
+            field.checked = true;
+          } 
+          else if (field.type === "checkbox" && typeof(user[userProperties[i]]) === "object") {
+            
+            user[userProperties[i]].forEach(function(c) {
+              c.toLowerCase() === field.value.toLowerCase() ? field.checked = true : null;
+            })
+            
+         
+            
+          }
           
 
       }
@@ -88,26 +132,11 @@ function readFromLocalStorage() {
 };
 
 
-// function generateStepsIndicators() {
-//   const steps = document.querySelectorAll('#modal .tab');
-//   const stepsContainer = document.querySelector('.steps-container');
-
-//   for(let i = 0; i < steps.length; i++) {
-//     let singeStepIndicator = document.createElement('span');
-//     singeStepIndicator.classList = "step";
-
-//     stepsContainer.appendChild(singeStepIndicator)
-//     console.log('step')
-//   }
-
-// }
- 
 
 
 
 //from w3s
-var currentTab = 0; // Current tab is set to be the first tab (0)
-showTab(currentTab); // Display the current tab
+
 
 function showTab(n) {
   // This function will display the specified tab of the form ...
@@ -270,14 +299,4 @@ function validateForm() {
     document.getElementsByClassName("step")[currentTab].className += " finish";
   }
   return valid; // return the valid status
-}
-
-function fixStepIndicator(n) {
-  // This function removes the "active" class of all steps...
-  var i, x = document.getElementsByClassName("step");
-  for (i = 0; i < x.length; i++) {
-    x[i].className = x[i].className.replace(" active", "");
-  }
-  //... and adds the "active" class to the current step:
-  x[n].className += " active";
 }
