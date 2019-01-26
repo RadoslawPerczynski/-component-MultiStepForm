@@ -1,7 +1,11 @@
 @import url("https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css"); /* Using a url */
 
+* {
+  box-sizing: border-box;
+}
 #surveyForm {
   position: relative;
+  margin-bottom: 0;
 }
 .form-field {
   position: relative;
@@ -12,6 +16,7 @@ textarea {
 .buttons-section {
   display: table;
   width: 100%;
+  margin-top: 10px;
 }
 .buttons-container {
   float: right;
@@ -33,9 +38,9 @@ textarea {
   padding: 20px;
   background: #fff;
   border-radius: 5px;
-  width: 40%;
+  width: 35%;
   position: relative;
-  transition: all 5s ease-in-out;
+  /* transition: all 5s ease-in-out; */
 }
 
 .popup .close {
@@ -60,11 +65,14 @@ textarea {
 /* styles for form from w3c */
 
 /* Mark input boxes that gets an error on validation: */
-input {
+input:not([type="radio"]):not([type="checkbox"]) {
   margin-bottom: 24px;
 }
+/* input["type"="checkbox"] {
+
+} */
 .invalid.invalid {
-  background-color: #ffdddd;
+  background-color: #f8d7da !important;
 }
 
 
@@ -72,7 +80,7 @@ input {
 /* Make circles that indicate the steps of the form: */
 .steps-container {
   text-align: center;
-  margin-top: 40px;
+  margin-top: 25px;
 }
 .step {
   height: 15px;
@@ -92,16 +100,18 @@ input {
 
 /* Mark the steps that are finished and valid: */
 .step.finish {
-  background-color: grey;
+  /* background-color: grey; */
 }
 
 .message-error {
-  background:#ffdddd;
+  background:#f8d7da;
   position: absolute;
   margin-bottom: 0;
   font-size: 12px;
   bottom: 0;
   width: 100%;
+  padding-left: 10px;
+  border-radius: 2px; 
 }
 td {
   padding: 5px 15px;
@@ -126,3 +136,11 @@ td {
 .tabs-container {
  position: relative;
 }
+
+select {
+  margin-bottom: 2.2rem;
+}
+textarea {
+  resize: none;
+}
+.checkboxex 
