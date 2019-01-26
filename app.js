@@ -14,14 +14,14 @@ setTimeout(() => {
 
 
 const user = {
-  userName: "",
-  userEmail: "",
-  userAge: "",
-  userAboutMe: "",
-  userAddress: "",
-  userGender: "",
-  userFavouriteBook: "",
-  userFavouriteColor: []
+  Name: "",
+  Email: "",
+  Age: "",
+  AboutMe: "",
+  Address: "",
+  Gender: "",
+  FavouriteBook: "",
+  FavouriteColor: []
 }
 
 
@@ -61,13 +61,18 @@ function populateAgeDropdown() {
 
 
 //from w3s
-var currentTab = 3; // Current tab is set to be the first tab (0)
+var currentTab = 0; // Current tab is set to be the first tab (0)
 showTab(currentTab); // Display the current tab
 
 function showTab(n) {
   // This function will display the specified tab of the form ...
   var x = document.getElementsByClassName("tab");
-  x[n].style.display = "block";
+  //x[n].style.display = "block";
+
+  x[n].classList.add('tab-active');
+
+  // x[n].classList.add('tab-active');
+
   // ... and fix the Previous/Next buttons:
   if (n == 0) {
     document.getElementById("prevBtn").style.display = "none";
@@ -127,7 +132,11 @@ function nextPrev(n) {
   // Exit the function if any field in the current tab is invalid:
   if (n == 1 && !validateForm()) return false;
   // Hide the current tab:
-  collectionOfTabs[currentTab].style.display = "none";
+  //collectionOfTabs[currentTab].style.display = "none";
+  collectionOfTabs[currentTab].classList.remove('tab-active');
+
+
+  saveTheValues();
   // Increase or decrease the current tab by 1:
   currentTab = currentTab + n;
   // if you have reached the end of the form... :
@@ -135,17 +144,52 @@ function nextPrev(n) {
     //...the form gets submitted:
     //document.getElementById("surveyForm").submit();
 
-    //instead of submitting the submit we will show another screen with all the detaial of the user.
-
-    alert('submission the form.Show results.')
+    showResults();
     return false;
   }
   // Otherwise, display the correct tab:
   showTab(currentTab);
+  
+}
+
+function showResults() {
+  const popupContent = document.querySelector('.popup-content');
+  popupContent.innerHTML = ""
+  const resultsHeadline = document.createElement('h2');
+  resultsHeadline.appendChild(document.createTextNode('Thank you for completing our survey!'))
+  popupContent.appendChild(resultsHeadline);
+
+  const resultsTable = document.createElement('table');
+  resultsTable.classList.add('u-full-width');
+  const thead = document.createElement('thead');
+  thead.innerHTML = "<th>Property</th><th>Details</th>";
+
+  const tbody = document.createElement('tbody');
+
+    Object.keys(user).forEach(function(property) {
+      console.log(property, user[property]);
+
+      let resultsTableRowHtml = `
+      <tr>
+        <td>${property}</td>
+        <td>${user[property]}</td>
+      </tr>`;
+
+      tbody.innerHTML += resultsTableRowHtml;
+
+
+  });
+  resultsTable.appendChild(thead);
+  resultsTable.appendChild(tbody);
+
+  popupContent.appendChild(resultsTable);
 }
 
 function validateForm() {
   let valid = true;
+  
+  return valid; //temporary tot est
+
 
   let collectionOfTabs = document.getElementsByClassName("tab");
   let inputsToValidatePerSteps = collectionOfTabs[currentTab].getElementsByClassName("user-input");

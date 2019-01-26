@@ -1,8 +1,8 @@
 @import url("https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css"); /* Using a url */
 
-/* #surveyForm {
+#surveyForm {
   position: relative;
-} */
+}
 .form-field {
   position: relative;
 }
@@ -33,7 +33,7 @@ textarea {
   padding: 20px;
   background: #fff;
   border-radius: 5px;
-  width: 30%;
+  width: 40%;
   position: relative;
   transition: all 5s ease-in-out;
 }
@@ -63,14 +63,11 @@ textarea {
 input {
   margin-bottom: 24px;
 }
-input.invalid {
+.invalid.invalid {
   background-color: #ffdddd;
 }
 
-/* Hide all steps by default: */
-.tab {
-  display: none;
-}
+
 
 /* Make circles that indicate the steps of the form: */
 .steps-container {
@@ -105,4 +102,27 @@ input.invalid {
   font-size: 12px;
   bottom: 0;
   width: 100%;
+}
+td {
+  padding: 5px 15px;
+}
+/* Hide all steps by default: */
+.tab {
+ transition: .5s;
+ opacity: 0;
+ position: absolute;
+ width: 100%;
+ visibility: hidden;
+ top: 0;
+
+}
+.tab-active {
+  opacity: 1;
+  position: relative;
+  visibility: visible;
+
+
+}
+.tabs-container {
+ position: relative;
 }

@@ -21,7 +21,7 @@
     <div class="popup">
      
       <a class="close" href="#">&times;</a>
-      <div class="content row">
+      <div class="popup-content">
         
         <form id="surveyForm" action="">
 
@@ -29,88 +29,94 @@
           <p class="intro">Welcome to the Wyzer customer satisfaction survey!</p>
           <p class="message"></p>
           
-          <!-- One "tab" for each step in the form: -->
-          <div class="tab">
-            <div class="form-field">
-                <label for="userName">Name:</label>
-                <input class="u-full-width user-input" type="text" placeholder="Your name" id="userName" name="userName" required>
-            </div>
-            <div class="form-field">
-                <label for="userEmail">E-mail:</label>
-                <input class="u-full-width user-input" type="email" placeholder="Your e-mail address" id="userEmail" name="userEmail" required>
-            </div>
-          </div>
-          
-          <div class="tab">
-              <div class="form-field">
-                  <label for="userAge">Age:</label>
-                  <select class="u-full-width user-input" id="userAge" name="userAge" required>
-                    <option value="">--Select Age--</option>
-                   </option>
-                  </select>
-              </div>
-             
-
-              <div class="form-field">
-                  <label for="userAboutMe">About Me:</label>
-                  <textarea class="u-full-width user-input" placeholder="About me..." id="userAboutMe" name="userAboutMe" required></textarea>
+          <div class="tabs-container">
+              <!-- One "tab" for each step in the form: -->
+              <div class="tab">
+                <div class="form-field">
+                    <label for="userName">Name:</label>
+                    <input class="u-full-width user-input" type="text" placeholder="Your name" id="userName" name="Name" required>
+                </div>
+                <div class="form-field">
+                    <label for="userEmail">E-mail:</label>
+                    <input class="u-full-width user-input" type="email" placeholder="Your e-mail address" id="userEmail" name="Email" required>
+                </div>
               </div>
               
+              <div class="tab">
+                  <div class="form-field">
+                      <label for="userAge">Age:</label>
+                      <select class="u-full-width user-input" id="userAge" name="Age" required>
+                        <option value="">--Select Age--</option>
+                      </option>
+                      </select>
+                  </div>
+                
 
-             
-          </div>
-          
-          <div class="tab">
-              <div class="form-field">
-                  <label for="userAddress">Adress:</label>
-                  <input class="u-full-width user-input" type="text" placeholder="Address" id="userAddress" name="userAddress">
+                  <div class="form-field">
+                      <label for="userAboutMe">About Me:</label>
+                      <textarea class="u-full-width user-input" placeholder="About me..." id="userAboutMe" name="AboutMe" required></textarea>
+                  </div>
+                
               </div>
-              
 
-              <div class="form-field">
-                  <label>Gender:</label>
-                  <label>
-                      <input type="radio" name="userGender" value="male" class="user-input">
-                      <span class="label-body">Male</span>
-                    </label>
-    
+              <div class="tab">
+                <div class="form-field">
+                    <label for="userAddress">Adress:</label>
+                    <input class="u-full-width user-input" type="text" placeholder="Address" id="userAddress" name="Address">
+                </div>
+                
+  
+                <div class="form-field">
+                    <label>Gender:</label>
                     <label>
-                      <input type="radio" name="userGender" value="female" class="user-input">
-                        <span class="label-body">Female</span>
+                        <input type="radio" name="Gender" value="male" class="user-input">
+                        <span class="label-body">Male</span>
                       </label>
-              </div>
-
-          </div>
-          
-          <div class="tab">
-              <div class="form-field">
-                  <label for="userFavouriteBook">Favourite book:</label>
-                  <input class="u-full-width user-input" type="text" placeholder="Favourite book" id="userFavouriteBook" name="userFavouriteBook">
-    
-              </div>
-              
-              <div class="form-field">
-                  <label>Favourite colors:</label>
-                  <label>
-                    <input type="checkbox" class="user-input" name="userFavouriteColor" value="Red">
-                    <span class="label-body">Red</span>
-                  </label>
-                  <label>
-                    <input type="checkbox" class="user-input" name="userFavouriteColor" value="Aqua">
-                    <span class="label-body">Aqua</span>
-                  </label>
+      
+                      <label>
+                        <input type="radio" name="Gender" value="female" class="user-input">
+                          <span class="label-body">Female</span>
+                        </label>
+                </div>
+  
+            </div>
+            
+            <div class="tab">
+                <div class="form-field">
+                    <label for="userFavouriteBook">Favourite book:</label>
+                    <input class="u-full-width user-input" type="text" placeholder="Favourite book" id="userFavouriteBook" name="FavouriteBook">
+      
+                </div>
+                
+                <div class="form-field">
+                    <label>Favourite colors:</label>
                     <label>
-                     <input type="checkbox" class="user-input" name="userFavouriteColor" value="Blue">
-                     <span class="label-body">Blue</span>
+                      <input type="checkbox" class="user-input" name="FavouriteColor" value="Red">
+                      <span class="label-body">Red</span>
+                    </label>
+                    <label>
+                      <input type="checkbox" class="user-input" name="FavouriteColor" value="Aqua">
+                      <span class="label-body">Aqua</span>
                     </label>
                       <label>
-                       <input type="checkbox" class="user-input" name="userFavouriteColor" value="Crimson">
-                      <span class="label-body">Crimson</span>
-                    </label>
-              </div>
-              
+                       <input type="checkbox" class="user-input" name="FavouriteColor" value="Blue">
+                       <span class="label-body">Blue</span>
+                      </label>
+                        <label>
+                         <input type="checkbox" class="user-input" name="FavouriteColor" value="Crimson">
+                        <span class="label-body">Crimson</span>
+                      </label>
+                </div>
+                
+  
+            </div>
+
+
 
           </div>
+        
+          
+      
 
           <div class="buttons-section">
             <div class="buttons-container">
