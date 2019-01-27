@@ -1,26 +1,30 @@
-@import url("https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css"); /* Using a url */
+@import url("https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css");
+
+/* variables */
+:root {
+  --spacing-xsmall: 5px;
+  --spacing-small: 10px;
+  --spacing-large: 20px;
+  --border-radius-small: 5px;
+  --border-radius-xsmall: 2px;
+  --popup-margin: 70px;
+  --popup-width: 35%;
+  --transition-time: .3s;
+  --popup-index: 9999;
+  --font-size-small: 12px;
+  --font-size-large: 30px;
+  --step-indicator-size: 15px;
+  --error-color: #f8d7da;
+}
 
 * {
   box-sizing: border-box;
 }
-#surveyForm {
-  position: relative;
-  margin-bottom: 0;
+
+h2 {
+  font-size: var(--font-size-large);
 }
-.form-field {
-  position: relative;
-}
-textarea {
-  font-family: inherit;
-}
-.buttons-section {
-  display: table;
-  width: 100%;
-  margin-top: 10px;
-}
-.buttons-container {
-  float: right;
-}
+
 .overlay {
   position: fixed;
   top: 0;
@@ -28,98 +32,83 @@ textarea {
   left: 0;
   right: 0;
   background: rgba(0, 0, 0, 0.7);
-  transition: opacity 500ms;
+  transition: opacity var(--transition-time);
   visibility: hidden;
   opacity: 0;
-  z-index: 999999;
+  z-index: var(--popup-index);
 }
 
 .popup {
-  margin: 70px auto;
-  padding: 20px;
-  background: #fff;
-  border-radius: 5px;
-  width: 35%;
+  margin: var(--popup-margin) auto;
+  padding: var(--spacing-large);
+  background: white;
+  border-radius: var(--border-radius-small);
+  width: var(--popup-width);
   position: relative;
-  /* transition: all 5s ease-in-out; */
+
 }
 
 .popup .close {
   position: absolute;
-  top: 0;
-  right: 15px;
-  transition: all 200ms;
-  font-size: 30px;
+  z-index: var(--popup-index);
+  top: var(--spacing-small);
+  right: var(--spacing-large);
+  transition: var(--transition-time);
+  font-size: var(--font-size-large);
   font-weight: bold;
   text-decoration: none;
-  color: #333;
+  color: #222;
 }
+
 .popup .close:hover {
-  color: #06D85F;
+  color: #33C3F0;
 }
 
 .modal-active {
   opacity: 1;
   visibility: visible;
 }
+#surveyForm {
+  position: relative;
+  margin-bottom: 0;
+}
 
-/* styles for form from w3c */
+.form-field {
+  position: relative;
+}
 
-/* Mark input boxes that gets an error on validation: */
 input:not([type="radio"]):not([type="checkbox"]) {
-  margin-bottom: 24px;
+  margin-bottom: var(--spacing-large);
 }
-/* input["type"="checkbox"] {
 
-} */
+select {
+  margin-bottom: var(--spacing-large);
+}
+
+textarea {
+  font-family: inherit;
+  resize: none;
+}
+
 .invalid.invalid {
-  background-color: #f8d7da !important;
+  background-color: var(--error-color) !important;
 }
 
-
-
-/* Make circles that indicate the steps of the form: */
-.steps-container {
-  text-align: center;
-  margin-top: 25px;
-}
-.step {
-  height: 15px;
-  width: 15px;
-  margin: 0 2px;
-  background-color: #bbbbbb;
-  border: none; 
-  border-radius: 50%;
-  display: inline-block;
-  opacity: 0.5;
-}
-
-/* Mark the active step: */
-.step.active {
-  opacity: 1;
-}
-
-/* Mark the steps that are finished and valid: */
-.step.finish {
-  /* background-color: grey; */
-}
-
+/* validating inputs */
 .message-error {
-  background:#f8d7da;
+  background:var(--error-color);
   position: absolute;
   margin-bottom: 0;
-  font-size: 12px;
+  font-size: var(--font-size-small);
   bottom: 0;
   width: 100%;
-  padding-left: 10px;
-  border-radius: 2px; 
+  padding-left: var(--spacing-small);
+  border-radius: var(--border-radius-xsmall); 
 }
-td {
-  padding: 5px 15px;
-}
+
 /* Hide all steps by default: */
 .tab {
- transition: .5s;
+ transition: var(--transition-time);
  opacity: 0;
  position: absolute;
  width: 100%;
@@ -131,21 +120,54 @@ td {
   opacity: 1;
   position: relative;
   visibility: visible;
-
-
 }
+
 .tabs-container {
  position: relative;
 }
 
-select {
-  margin-bottom: 2.2rem;
+/* steps indicators */
+.steps-container {
+  text-align: center;
+  margin-top: var(--spacing-large);
 }
-textarea {
-  resize: none;
+
+.step {
+  height: var(--step-indicator-size);
+  width: var(--step-indicator-size);
+  margin: 0 2px;
+  background-color: #bbbbbb;
+  border: none; 
+  border-radius: 50%;
+  display: inline-block;
+  opacity: 0.5;
 }
+
+.step.active {
+  opacity: 1;
+}
+
+.buttons-section {
+  display: table;
+  width: 100%;
+  margin-top: var(--spacing-small);
+}
+
+.buttons-container {
+  float: right;
+}
+
+td {
+  padding: var(--spacing-xsmall) var(--spacing-large);
+
+}
+
 .about-author {
   text-align: center;
   text-decoration: underline;
-  font-size: 12px;
+  font-size: var(--font-size-small);
 }
+
+
+
+

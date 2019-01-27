@@ -1,51 +1,25 @@
+//Form Html
 let popupFormHtml = `
  <div id="modal" class="overlay"> <div class="popup"> <a class="close" href="#">&times;</a> <div class="popup-content"> <form id="surveyForm"> <h2>Dummy Survey</h2> <p class="intro">Welcome to the our dummy survey!</p><p class="message"></p><div class="tabs-container"> <div class="tab"> <div class="form-field"> <label for="userName">Name:</label> <input class="u-full-width user-input" type="text" placeholder="Your name" id="userName" name="Name" required> </div><div class="form-field"> <label for="userEmail">E-mail:</label> <input class="u-full-width user-input" type="email" placeholder="Your e-mail address" id="userEmail" name="Email" required> </div></div><div class="tab"> <div class="form-field"> <label for="userAge">Age:</label> <select class="u-full-width user-input" id="userAge" name="Age" required> <option value="">--Select Age--</option> </select> </div><div class="form-field"> <label for="userAboutMe">About Me:</label> <textarea class="u-full-width user-input" placeholder="About me..." id="userAboutMe" name="AboutMe" required></textarea> </div></div><div class="tab"> <div class="form-field"> <label for="userAddress">Adress:</label> <input class="u-full-width user-input" type="text" placeholder="Address" id="userAddress" name="Address"> </div><div class="form-field"> <label>Gender:</label> <label> <input type="radio" name="Gender" value="male" class="user-input"> <span class="label-body">Male</span> </label> <label> <input type="radio" name="Gender" value="female" class="user-input"> <span class="label-body">Female</span> </label> </div></div><div class="tab"> <div class="form-field"> <label for="userFavouriteBook">Favourite book:</label> <input class="u-full-width user-input" type="text" placeholder="Favourite book" id="userFavouriteBook" name="FavouriteBook"> </div><div class="form-field checkboxex"> <label>Favourite colors:</label> <label> <input type="checkbox" class="user-input" name="FavouriteColor" value="Red"> <span class="label-body">Red</span> </label> <label> <input type="checkbox" class="user-input" name="FavouriteColor" value="Aqua"> <span class="label-body">Aqua</span> </label> <label> <input type="checkbox" class="user-input" name="FavouriteColor" value="Blue"> <span class="label-body">Blue</span> </label> <label> <input type="checkbox" class="user-input" name="FavouriteColor" value="Crimson"> <span class="label-body">Crimson</span> </label> </div></div></div><div class="buttons-section"> <div class="buttons-container"> <button type="button" id="prevBtn">Previous</button> <button type="button" class="button-primary" id="nextBtn">Next</button> </div></div><div class="steps-container"></div></form> </div></div></div>
 `;
 
+//Dictionaries
+const modalActiveClass = 'modal-active';
+const errorBoxClassName = 'message-error';
+const thankYouMessage = 'Thank you!';
+
+//app starts
 createForm();
 populateAgeDropdown();
 generateStepsIndicators();
-let currentTab = 0; // Current tab is set to be the first tab (0)
-// showTab(currentTab); // Display the current tab
+let currentTab = 0; // Current tab is set to be the first tab on init 
 
 //Define UI variables
 const modal = document.querySelector('#modal');
 const closeBtn = document.querySelector('.close');
 
-document.addEventListener("DOMContentLoaded", function() { 
-
-
-  closeBtn.addEventListener('click', ()=> {
-    modal.classList.toggle('modal-active');
-  })
-
-
-  document.querySelector('#nextBtn').addEventListener('click', function() {
-    nextPrev(1);
-  });
-  document.querySelector('#prevBtn').addEventListener('click', function() {
-    nextPrev(-1);
-  });
-
-
-  
-  readFromLocalStorage();
-
-  if(readFromLocalStorage() != false) {
-    setTimeout(() => {
-
-      showTab(currentTab); // Display the current tab
-    
-        modal.classList.toggle('modal-active');
-    
-      },2000);
-  }
-
-
-  
-});
-
-const User = {
+//Model (object) to bind the values to
+let User = {
   Name: "",
   Email: "",
   Age: "",
@@ -54,7 +28,37 @@ const User = {
   Gender: "",
   FavouriteBook: "",
   FavouriteColor: [],
-  TheHighestStep: 0
+  TheHighestStepNumber: 0
+}
+
+document.addEventListener("DOMContentLoaded", function() { 
+  loadEventListeners();
+  
+  readFromLocalStorage();
+
+  if(readFromLocalStorage() != false) {
+    setTimeout(() => {
+
+      showTab(currentTab); // Display the current tab
+    
+        modal.classList.toggle(modalActiveClass);
+    
+      },2000);
+  }
+
+});
+
+function loadEventListeners() {
+  closeBtn.addEventListener('click', ()=> {
+    modal.classList.toggle(modalActiveClass);
+  })
+
+  document.querySelector('#nextBtn').addEventListener('click', function() {
+    nextPrev(1);
+  });
+  document.querySelector('#prevBtn').addEventListener('click', function() {
+    nextPrev(-1);
+  });
 }
 
 function createForm() {
@@ -91,8 +95,8 @@ function generateStepsIndicators() {
 
 function showTab(n) {
   // Display the specified tab of the form ...
-  var x = document.getElementsByClassName("tab");
-  x[n].classList.add('tab-active');
+  var allTabs = document.getElementsByClassName("tab");
+  allTabs[n].classList.add('tab-active');
 
   // fix the Previous/Next buttons:
   if (n == 0) {
@@ -100,7 +104,7 @@ function showTab(n) {
   } else {
     document.getElementById("prevBtn").style.display = "inline";
   }
-  if (n == (x.length - 1)) {
+  if (n == (allTabs.length - 1)) {
     document.getElementById("nextBtn").innerHTML = "Submit";
   } else {
     document.getElementById("nextBtn").innerHTML = "Next";
@@ -118,7 +122,6 @@ function fixStepIndicator(n) {
   steps[n].className += " active";
 }
 
-
 function nextPrev(n) {
   let collectionOfTabs = document.getElementsByClassName("tab");
 
@@ -131,16 +134,17 @@ function nextPrev(n) {
   }
   currentTab = currentTab + n;
 
+  //bind the values to the User Object per each step
   saveTheValues();
 
-  // if the last step
+  // show results if user reaches the last step
   if (currentTab >= collectionOfTabs.length) {
     showResults();
     
     return false;
   }
   
-  // Otherwise, display the correct tab:
+  // Otherwise, display the correct tab
   showTab(currentTab);
   
 }
@@ -151,27 +155,29 @@ function validateForm() {
   let collectionOfTabs = document.getElementsByClassName("tab");
   let inputsToValidatePerSteps = collectionOfTabs[currentTab].getElementsByClassName("user-input");
 
-  // A loop that checks every input field in the current tab:
+  // A loop that checks every single input in the current tab/step and creates the error messages if needed:
   for (let i = 0; i < inputsToValidatePerSteps.length; i++) {
     
     const errorBox = document.createElement('p');
-    errorBox.className = 'message-error'
+    errorBox.className = errorBoxClassName;
+
     const currentElement = inputsToValidatePerSteps[i];
     if (!currentElement.checkValidity()) {
       
-      if(currentElement.nextSibling.className === "message-error") {
+      //remove error message if another one is present
+      if(currentElement.nextSibling.className === errorBoxClassName) {
         currentElement.nextSibling.remove();
       }
+      //and add a new error message
       currentElement.after(errorBox);
-
       errorBox.innerHTML = currentElement.validationMessage;
       currentElement.classList.add('invalid');
       valid = false;
     } 
     else {
+      //if everything is ok delete the error messages
       currentElement.classList.remove('invalid');
-      currentElement.classList.add('valid');
-      if(currentElement.nextSibling.className === "message-error") {
+      if(currentElement.nextSibling.className === errorBoxClassName) {
         currentElement.nextSibling.remove();
       }
       
@@ -187,7 +193,7 @@ function showResults() {
   const popupContent = document.querySelector('.popup-content');
   popupContent.innerHTML = "";
   const resultsHeadline = document.createElement('h2');
-  resultsHeadline.appendChild(document.createTextNode('Thank you for completing our survey!'));
+  resultsHeadline.appendChild(document.createTextNode(thankYouMessage));
   popupContent.appendChild(resultsHeadline);
 
   const resultsTable = document.createElement('table');
@@ -198,13 +204,17 @@ function showResults() {
   const tbody = document.createElement('tbody');
 
     Object.keys(User).forEach(function(property) {
-      let resultsTableRowHtml = `
-      <tr>
-        <td>${property}</td>
-        <td>${User[property] != "" ? User[property] : "Not filled"}</td>
-      </tr>`;
-      tbody.innerHTML += resultsTableRowHtml;
 
+      if(property != "TheHighestStepNumber") {
+        let resultsTableRowHtml = `
+        <tr>
+          <td>${property}</td>
+          <td>${User[property] != "" ? User[property] : "Not filled"}</td>
+        </tr>`;
+        tbody.innerHTML += resultsTableRowHtml;
+      }
+
+     
   });
   resultsTable.appendChild(thead);
   resultsTable.appendChild(tbody);
@@ -223,8 +233,7 @@ function saveTheValues() {
   let userProperties = Object.keys(User);
   let arrayOfvalues = [];
 
-  //first bind the values from all the inputs to the UserObject
-  //if the name of input matches the User object property
+  //first bind the values from all the inputs to the UserObject only if the name of the particular input matches the User object property
   for(let i = 0; i < userProperties.length; i++) {
    
     fields.forEach(function(field) {
@@ -253,7 +262,6 @@ function saveTheValues() {
       }
     })
   }
-  //User.TheHighestStep = currentTab;
 
   //save the whole object to the localstorage
   localStorage.setItem('userObject', JSON.stringify(User));
@@ -261,12 +269,11 @@ function saveTheValues() {
   //save the step only if the user made a progress in the form
   let userFromLocalStorage = JSON.parse(localStorage.getItem('userObject'))
 
-  if(userFromLocalStorage.TheHighestStep < currentTab) {
-    User.TheHighestStep = currentTab;
+  if(userFromLocalStorage.TheHighestStepNumber < currentTab) {
+    User.TheHighestStepNumber = currentTab;
     localStorage.setItem('userObject', JSON.stringify(User));
 
   }
-
 
 }
 
@@ -279,7 +286,7 @@ function readFromLocalStorage() {
   } 
 
   // load the correct tab
-  currentTab = userFromLocalStorage.TheHighestStep;
+  currentTab = userFromLocalStorage.TheHighestStepNumber;
 
   //pass the information to other function to not display the popup if the user submitted the survey last time
   let collectionOfTabs = document.getElementsByClassName("tab");
