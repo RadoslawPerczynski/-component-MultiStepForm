@@ -1,34 +1,46 @@
 let popupFormHtml = `
- <div id="modal" class="overlay"> <div class="popup"> <a class="close" href="#">&times;</a> <div class="popup-content"> <form id="surveyForm"> <h2>Dummy Survey</h2> <p class="intro">Welcome to the our dummy survey!</p><p class="message"></p><div class="tabs-container"> <div class="tab"> <div class="form-field"> <label for="userName">Name:</label> <input class="u-full-width user-input" type="text" placeholder="Your name" id="userName" name="Name" required> </div><div class="form-field"> <label for="userEmail">E-mail:</label> <input class="u-full-width user-input" type="email" placeholder="Your e-mail address" id="userEmail" name="Email" required> </div></div><div class="tab"> <div class="form-field"> <label for="userAge">Age:</label> <select class="u-full-width user-input" id="userAge" name="Age" required> <option value="">--Select Age--</option> </select> </div><div class="form-field"> <label for="userAboutMe">About Me:</label> <textarea class="u-full-width user-input" placeholder="About me..." id="userAboutMe" name="AboutMe" required></textarea> </div></div><div class="tab"> <div class="form-field"> <label for="userAddress">Adress:</label> <input class="u-full-width user-input" type="text" placeholder="Address" id="userAddress" name="Address"> </div><div class="form-field"> <label>Gender:</label> <label> <input type="radio" name="Gender" value="male" class="user-input"> <span class="label-body">Male</span> </label> <label> <input type="radio" name="Gender" value="female" class="user-input"> <span class="label-body">Female</span> </label> </div></div><div class="tab"> <div class="form-field"> <label for="userFavouriteBook">Favourite book:</label> <input class="u-full-width user-input" type="text" placeholder="Favourite book" id="userFavouriteBook" name="FavouriteBook"> </div><div class="form-field checkboxex"> <label>Favourite colors:</label> <label> <input type="checkbox" class="user-input" name="FavouriteColor" value="Red"> <span class="label-body">Red</span> </label> <label> <input type="checkbox" class="user-input" name="FavouriteColor" value="Aqua"> <span class="label-body">Aqua</span> </label> <label> <input type="checkbox" class="user-input" name="FavouriteColor" value="Blue"> <span class="label-body">Blue</span> </label> <label> <input type="checkbox" class="user-input" name="FavouriteColor" value="Crimson"> <span class="label-body">Crimson</span> </label> </div></div></div><div class="buttons-section"> <div class="buttons-container"> <button type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button> <button type="button" class="button-primary" id="nextBtn" onclick="nextPrev(1)">Next</button> </div></div><div class="steps-container"></div></form> </div></div></div>
+ <div id="modal" class="overlay"> <div class="popup"> <a class="close" href="#">&times;</a> <div class="popup-content"> <form id="surveyForm"> <h2>Dummy Survey</h2> <p class="intro">Welcome to the our dummy survey!</p><p class="message"></p><div class="tabs-container"> <div class="tab"> <div class="form-field"> <label for="userName">Name:</label> <input class="u-full-width user-input" type="text" placeholder="Your name" id="userName" name="Name" required> </div><div class="form-field"> <label for="userEmail">E-mail:</label> <input class="u-full-width user-input" type="email" placeholder="Your e-mail address" id="userEmail" name="Email" required> </div></div><div class="tab"> <div class="form-field"> <label for="userAge">Age:</label> <select class="u-full-width user-input" id="userAge" name="Age" required> <option value="">--Select Age--</option> </select> </div><div class="form-field"> <label for="userAboutMe">About Me:</label> <textarea class="u-full-width user-input" placeholder="About me..." id="userAboutMe" name="AboutMe" required></textarea> </div></div><div class="tab"> <div class="form-field"> <label for="userAddress">Adress:</label> <input class="u-full-width user-input" type="text" placeholder="Address" id="userAddress" name="Address"> </div><div class="form-field"> <label>Gender:</label> <label> <input type="radio" name="Gender" value="male" class="user-input"> <span class="label-body">Male</span> </label> <label> <input type="radio" name="Gender" value="female" class="user-input"> <span class="label-body">Female</span> </label> </div></div><div class="tab"> <div class="form-field"> <label for="userFavouriteBook">Favourite book:</label> <input class="u-full-width user-input" type="text" placeholder="Favourite book" id="userFavouriteBook" name="FavouriteBook"> </div><div class="form-field checkboxex"> <label>Favourite colors:</label> <label> <input type="checkbox" class="user-input" name="FavouriteColor" value="Red"> <span class="label-body">Red</span> </label> <label> <input type="checkbox" class="user-input" name="FavouriteColor" value="Aqua"> <span class="label-body">Aqua</span> </label> <label> <input type="checkbox" class="user-input" name="FavouriteColor" value="Blue"> <span class="label-body">Blue</span> </label> <label> <input type="checkbox" class="user-input" name="FavouriteColor" value="Crimson"> <span class="label-body">Crimson</span> </label> </div></div></div><div class="buttons-section"> <div class="buttons-container"> <button type="button" id="prevBtn">Previous</button> <button type="button" class="button-primary" id="nextBtn">Next</button> </div></div><div class="steps-container"></div></form> </div></div></div>
 `;
 
 createForm();
 populateAgeDropdown();
 generateStepsIndicators();
 let currentTab = 0; // Current tab is set to be the first tab (0)
-showTab(currentTab); // Display the current tab
+// showTab(currentTab); // Display the current tab
 
 //Define UI variables
 const modal = document.querySelector('#modal');
 const closeBtn = document.querySelector('.close');
 
 document.addEventListener("DOMContentLoaded", function() { 
-  setTimeout(() => {
-    // modal.classList.toggle('modal-active');
 
-    // document.querySelector('#prevBtn').addEventListener('click', nextPrev(-1));
-    // document.querySelector('#nextBtn').addEventListener('click', nextPrev(1));
-
-
-  },2000);
 
   closeBtn.addEventListener('click', ()=> {
     modal.classList.toggle('modal-active');
   })
 
+
+  document.querySelector('#nextBtn').addEventListener('click', function() {
+    nextPrev(1);
+  });
+  document.querySelector('#prevBtn').addEventListener('click', function() {
+    nextPrev(-1);
+  });
+
+
+  
   readFromLocalStorage();
 
- 
+  if(readFromLocalStorage() != false) {
+    setTimeout(() => {
+
+      showTab(currentTab); // Display the current tab
+    
+        modal.classList.toggle('modal-active');
+    
+      },2000);
+  }
+
 
   
 });
@@ -108,7 +120,7 @@ function fixStepIndicator(n) {
 
 
 function nextPrev(n) {
-  var collectionOfTabs = document.getElementsByClassName("tab");
+  let collectionOfTabs = document.getElementsByClassName("tab");
 
   // Exit the function if any field in the current tab is invalid:
   if (n == 1 && !validateForm()) return false;
@@ -241,6 +253,7 @@ function saveTheValues() {
       }
     })
   }
+  //User.TheHighestStep = currentTab;
 
   //save the whole object to the localstorage
   localStorage.setItem('userObject', JSON.stringify(User));
@@ -267,10 +280,18 @@ function readFromLocalStorage() {
 
   // load the correct tab
   currentTab = userFromLocalStorage.TheHighestStep;
+
+  //pass the information to other function to not display the popup if the user submitted the survey last time
+  let collectionOfTabs = document.getElementsByClassName("tab");
+  if(currentTab === collectionOfTabs.length) {
+    return false;
+  }
+
   let fields = document.querySelectorAll('.user-input');
 
   let userProperties = Object.keys(userFromLocalStorage);
-  let arrayOfvalues = [];
+  
+  //set correct values to the fields
   for(let i = 0; i < userProperties.length; i++) {
    
     fields.forEach(function(field) {
@@ -301,4 +322,5 @@ function readFromLocalStorage() {
     })
   
   }
+  saveTheValues();
 };
