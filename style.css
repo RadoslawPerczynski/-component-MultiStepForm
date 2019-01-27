@@ -5,6 +5,7 @@
   --spacing-xsmall: 5px;
   --spacing-small: 10px;
   --spacing-large: 20px;
+  --spacing-xlarge: 40px;
   --border-radius-small: 5px;
   --border-radius-xsmall: 2px;
   --popup-margin: 70px;
@@ -36,6 +37,7 @@ h2 {
   visibility: hidden;
   opacity: 0;
   z-index: var(--popup-index);
+  overflow: overlay;
 }
 
 .popup {
@@ -75,19 +77,25 @@ h2 {
 
 .form-field {
   position: relative;
+  margin-bottom: var(--spacing-large);
+  
 }
 
 input:not([type="radio"]):not([type="checkbox"]) {
-  margin-bottom: var(--spacing-large);
+  margin: 0;
+}
+.field-email {
+  margin-bottom: var(--spacing-xlarge);
 }
 
 select {
-  margin-bottom: var(--spacing-large);
+  margin-bottom: var(--spacing-xsmall);
 }
 
 textarea {
   font-family: inherit;
   resize: none;
+  margin-bottom: 0;
 }
 
 .invalid.invalid {
@@ -104,6 +112,7 @@ textarea {
   width: 100%;
   padding-left: var(--spacing-small);
   border-radius: var(--border-radius-xsmall); 
+  transform: translateY(100%)
 }
 
 /* Hide all steps by default: */
@@ -159,7 +168,7 @@ textarea {
 
 td {
   padding: var(--spacing-xsmall) var(--spacing-large);
-
+  word-break: break-word;
 }
 
 .about-author {
