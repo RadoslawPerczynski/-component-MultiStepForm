@@ -1,5 +1,5 @@
 let popupFormHtml = `
- <div id="modal" class="overlay"> <div class="popup"> <a class="close" href="#">&times;</a> <div class="popup-content"> <form id="surveyForm"> <h2>Dummy Survey</h2> <p class="intro">Welcome to the our dummy survey!</p><p class="message"></p><div class="tabs-container"> <div class="tab"> <div class="form-field"> <label for="userName">Name:</label> <input class="u-full-width user-input" type="text" placeholder="Your name" id="userName" name="Name" required> </div><div class="form-field"> <label for="userEmail">E-mail:</label> <input class="u-full-width user-input" type="email" placeholder="Your e-mail address" id="userEmail" name="Email" required> </div></div><div class="tab"> <div class="form-field"> <label for="userAge">Age:</label> <select class="u-full-width user-input" id="userAge" name="Age" required> <option value="">--Select Age--</option> </select> </div><div class="form-field"> <label for="userAboutMe">About Me:</label> <textarea class="u-full-width user-input" placeholder="About me..." id="userAboutMe" name="AboutMe" required></textarea> </div></div><div class="tab"> <div class="form-field"> <label for="userAddress">Adress:</label> <input class="u-full-width user-input" type="text" placeholder="Address" id="userAddress" name="Address"> </div><div class="form-field"> <label>Gender:</label> <label> <input type="radio" name="Gender" value="male" class="user-input"> <span class="label-body">Male</span> </label> <label> <input type="radio" name="Gender" value="Female" class="user-input"> <span class="label-body">Female</span> </label> </div></div><div class="tab"> <div class="form-field"> <label for="userFavouriteBook">Favourite book:</label> <input class="u-full-width user-input" type="text" placeholder="Favourite book" id="userFavouriteBook" name="FavouriteBook"> </div><div class="form-field checkboxex"> <label>Favourite colors:</label> <label> <input type="checkbox" class="user-input" name="FavouriteColor" value="Red"> <span class="label-body">Red</span> </label> <label> <input type="checkbox" class="user-input" name="FavouriteColor" value="Aqua"> <span class="label-body">Aqua</span> </label> <label> <input type="checkbox" class="user-input" name="FavouriteColor" value="Blue"> <span class="label-body">Blue</span> </label> <label> <input type="checkbox" class="user-input" name="FavouriteColor" value="Crimson"> <span class="label-body">Crimson</span> </label> </div></div></div><div class="buttons-section"> <div class="buttons-container"> <button type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button> <button type="button" class="button-primary" id="nextBtn" onclick="nextPrev(1)">Next</button> </div></div><div class="steps-container"></div></form> </div></div></div>
+ <div id="modal" class="overlay"> <div class="popup"> <a class="close" href="#">&times;</a> <div class="popup-content"> <form id="surveyForm"> <h2>Dummy Survey</h2> <p class="intro">Welcome to the our dummy survey!</p><p class="message"></p><div class="tabs-container"> <div class="tab"> <div class="form-field"> <label for="userName">Name:</label> <input class="u-full-width user-input" type="text" placeholder="Your name" id="userName" name="Name" required> </div><div class="form-field"> <label for="userEmail">E-mail:</label> <input class="u-full-width user-input" type="email" placeholder="Your e-mail address" id="userEmail" name="Email" required> </div></div><div class="tab"> <div class="form-field"> <label for="userAge">Age:</label> <select class="u-full-width user-input" id="userAge" name="Age" required> <option value="">--Select Age--</option> </select> </div><div class="form-field"> <label for="userAboutMe">About Me:</label> <textarea class="u-full-width user-input" placeholder="About me..." id="userAboutMe" name="AboutMe" required></textarea> </div></div><div class="tab"> <div class="form-field"> <label for="userAddress">Adress:</label> <input class="u-full-width user-input" type="text" placeholder="Address" id="userAddress" name="Address"> </div><div class="form-field"> <label>Gender:</label> <label> <input type="radio" name="Gender" value="male" class="user-input"> <span class="label-body">Male</span> </label> <label> <input type="radio" name="Gender" value="female" class="user-input"> <span class="label-body">Female</span> </label> </div></div><div class="tab"> <div class="form-field"> <label for="userFavouriteBook">Favourite book:</label> <input class="u-full-width user-input" type="text" placeholder="Favourite book" id="userFavouriteBook" name="FavouriteBook"> </div><div class="form-field checkboxex"> <label>Favourite colors:</label> <label> <input type="checkbox" class="user-input" name="FavouriteColor" value="Red"> <span class="label-body">Red</span> </label> <label> <input type="checkbox" class="user-input" name="FavouriteColor" value="Aqua"> <span class="label-body">Aqua</span> </label> <label> <input type="checkbox" class="user-input" name="FavouriteColor" value="Blue"> <span class="label-body">Blue</span> </label> <label> <input type="checkbox" class="user-input" name="FavouriteColor" value="Crimson"> <span class="label-body">Crimson</span> </label> </div></div></div><div class="buttons-section"> <div class="buttons-container"> <button type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button> <button type="button" class="button-primary" id="nextBtn" onclick="nextPrev(1)">Next</button> </div></div><div class="steps-container"></div></form> </div></div></div>
 `;
 
 createForm();
@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", function() {
   
 });
 
-const user = {
+const User = {
   Name: "",
   Email: "",
   Age: "",
@@ -175,11 +175,11 @@ function showResults() {
 
   const tbody = document.createElement('tbody');
 
-    Object.keys(user).forEach(function(property) {
+    Object.keys(User).forEach(function(property) {
       let resultsTableRowHtml = `
       <tr>
         <td>${property}</td>
-        <td>${user[property] != "" ? user[property] : "Not filled"}</td>
+        <td>${User[property] != "" ? User[property] : "Not filled"}</td>
       </tr>`;
       tbody.innerHTML += resultsTableRowHtml;
 
@@ -198,39 +198,54 @@ function showResults() {
 
 function saveTheValues() {
   let fields = document.querySelectorAll('.user-input');
-  let userProperties = Object.keys(user);
+  let userProperties = Object.keys(User);
   let arrayOfvalues = [];
+
+  //first bind the values from all the inputs to the UserObject
+  //if the name of input matches the User object property
   for(let i = 0; i < userProperties.length; i++) {
    
     fields.forEach(function(field) {
 
-       if(field.name === userProperties[i]) {
+      let userProperty = userProperties[i];
+
+       if(field.name === userProperty) {
         
-          if(field.type === "text" || 
+          if (field.type === "text" || 
           field.type === "textarea" || 
           field.type === "email" || 
           field.type === "select-one" ||
           field.type === "radio" && field.checked) 
           {
-            user[userProperties[i]] = field.value;
+            User[userProperty] = field.value;
           } 
-          else if (field.type === "checkbox" && field.checked && typeof(user[userProperties[i]]) === "object") {
-            arrayOfvalues.push(field.value);
-            user[userProperties[i]] = arrayOfvalues;
-          }
+          else if (field.type === "checkbox" && typeof(User
+            [userProperty]) === "object") {
+
+              if(field.checked) {
+                arrayOfvalues.push(field.value);
+                
+              }
+              User[userProperty] = arrayOfvalues;
+          } 
       }
     })
   }
-  saveToLocalStorage();
+  
+  //save the whole object to the localstorage
+  localStorage.setItem('userObject', JSON.stringify(User));
  
 }
 
-function saveToLocalStorage() {
-  localStorage.setItem('userObject', JSON.stringify(user));
-}
-
 function readFromLocalStorage() {
+
   let userFromLocalStorage = JSON.parse(localStorage.getItem('userObject'))
+
+  if(userFromLocalStorage === null) {
+    return;
+  } 
+
+  // let userFromLocalStorage = JSON.parse(localStorage.getItem('userObject'))
   let fields = document.querySelectorAll('.user-input');
 
   let userProperties = Object.keys(userFromLocalStorage);
@@ -238,7 +253,7 @@ function readFromLocalStorage() {
   for(let i = 0; i < userProperties.length; i++) {
    
     fields.forEach(function(field) {
-      let fdsf = userProperties[i];
+      let userProperty = userProperties[i];
        if(field.name === userProperties[i]) {
         
           if(field.type === "text" || 
@@ -253,10 +268,10 @@ function readFromLocalStorage() {
 
             field.checked = true;
           } 
-          else if (field.type === "checkbox" && typeof(user[userProperties[i]]) === "object") {
+          else if (field.type === "checkbox" && typeof(User[userProperties[i]]) === "object") {
             
-            user[userProperties[i]].forEach(function(c) {
-              c.toLowerCase() === field.value.toLowerCase() ? field.checked = true : null;
+            userFromLocalStorage[userProperties[i]].forEach(function(c) {
+              c === field.value ? field.checked = true : null;
             })
             
           }
