@@ -14,7 +14,12 @@ const closeBtn = document.querySelector('.close');
 
 document.addEventListener("DOMContentLoaded", function() { 
   setTimeout(() => {
-    modal.classList.toggle('modal-active');
+    // modal.classList.toggle('modal-active');
+
+    // document.querySelector('#prevBtn').addEventListener('click', nextPrev(-1));
+    // document.querySelector('#nextBtn').addEventListener('click', nextPrev(1));
+
+
   },2000);
 
   closeBtn.addEventListener('click', ()=> {
@@ -22,7 +27,9 @@ document.addEventListener("DOMContentLoaded", function() {
   })
 
   readFromLocalStorage();
-  // saveToLocalStorage();
+
+ 
+
   
 });
 
@@ -34,7 +41,8 @@ const User = {
   Address: "",
   Gender: "",
   FavouriteBook: "",
-  FavouriteColor: []
+  FavouriteColor: [],
+  TheHighestStep: 0
 }
 
 function createForm() {
@@ -106,7 +114,9 @@ function nextPrev(n) {
   if (n == 1 && !validateForm()) return false;
 
   // Hide the current tab:
-  collectionOfTabs[currentTab].classList.remove('tab-active');
+  if(collectionOfTabs[currentTab].classList.contains('tab-active')) {
+    collectionOfTabs[currentTab].classList.remove('tab-active');
+  }
   currentTab = currentTab + n;
 
   saveTheValues();
@@ -231,10 +241,20 @@ function saveTheValues() {
       }
     })
   }
-  
+
   //save the whole object to the localstorage
   localStorage.setItem('userObject', JSON.stringify(User));
- 
+
+  //save the step only if the user made a progress in the form
+  let userFromLocalStorage = JSON.parse(localStorage.getItem('userObject'))
+
+  if(userFromLocalStorage.TheHighestStep < currentTab) {
+    User.TheHighestStep = currentTab;
+    localStorage.setItem('userObject', JSON.stringify(User));
+
+  }
+
+
 }
 
 function readFromLocalStorage() {
@@ -245,7 +265,8 @@ function readFromLocalStorage() {
     return;
   } 
 
-  // let userFromLocalStorage = JSON.parse(localStorage.getItem('userObject'))
+  // load the correct tab
+  currentTab = userFromLocalStorage.TheHighestStep;
   let fields = document.querySelectorAll('.user-input');
 
   let userProperties = Object.keys(userFromLocalStorage);
@@ -254,23 +275,23 @@ function readFromLocalStorage() {
    
     fields.forEach(function(field) {
       let userProperty = userProperties[i];
-       if(field.name === userProperties[i]) {
+       if(field.name === userProperty) {
         
           if(field.type === "text" || 
           field.type === "textarea" || 
           field.type === "email" || 
           field.type === "select-one") 
           {
-            field.value = userFromLocalStorage[userProperties[i]];
+            field.value = userFromLocalStorage[userProperty];
             
           }
-          else if (field.type === "radio" && field.value === userFromLocalStorage[userProperties[i]].toLowerCase()) {
+          else if (field.type === "radio" && field.value === userFromLocalStorage[userProperty].toLowerCase()) {
 
             field.checked = true;
           } 
-          else if (field.type === "checkbox" && typeof(User[userProperties[i]]) === "object") {
+          else if (field.type === "checkbox" && typeof(userFromLocalStorage[userProperty]) === "object") {
             
-            userFromLocalStorage[userProperties[i]].forEach(function(c) {
+            userFromLocalStorage[userProperty].forEach(function(c) {
               c === field.value ? field.checked = true : null;
             })
             
