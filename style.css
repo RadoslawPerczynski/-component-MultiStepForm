@@ -31,6 +31,7 @@ textarea {
   transition: opacity 500ms;
   visibility: hidden;
   opacity: 0;
+  z-index: 999999;
 }
 
 .popup {
@@ -143,4 +144,8 @@ select {
 textarea {
   resize: none;
 }
-.checkboxex 
+.about-author {
+  text-align: center;
+  text-decoration: underline;
+  font-size: 12px;
+}
